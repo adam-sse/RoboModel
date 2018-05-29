@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated robo -->
+      <package
+            uri="http://www.example.org/robo"
+            class="robomodel.robo.RoboPackage"
+            genModel="model/robo.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated robo -->
+      <package
+            uri="http://www.example.org/robo/command"
+            class="robomodel.robo.command.CommandPackage"
+            genModel="model/robo.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated robo -->
+      <package
+            uri="http://www.example.org/robo/expression"
+            class="robomodel.robo.expression.ExpressionPackage"
+            genModel="model/robo.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated robo -->
+      <package
+            uri="http://www.example.org/robo/condition"
+            class="robomodel.robo.condition.ConditionPackage"
+            genModel="model/robo.genmodel"/>
+   </extension>
+
+</plugin>

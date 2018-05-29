@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pivot:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pivot="http://www.eclipse.org/ocl/2015/Pivot"
+    xsi:schemaLocation="http://www.eclipse.org/ocl/2015/Pivot java://org.eclipse.ocl.pivot.PivotPackage" name="robo.ecore.oclas" externalURI="platform:/resource/RoboModel/model/robo.ecore.oclas">
+  <ownedImports name="ecore" importedNamespace="pivot:Package http://www.eclipse.org/emf/2002/Ecore.oclas#//@ownedPackages.0"/>
+  <ownedPackages xmi:id="P.robo" name="robo" URI="http://www.example.org/robo" nsPrefix="robo">
+    <ownedClasses xmi:id="T.robo.Robot" name="Robot" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclElement">
+      <ownedProperties xmi:id="p.robo.Robot.programms" name="programms" type="#//@ownedPackages.1/@ownedClasses.0" isComposite="true"
+          opposite="#p.robo.Program.Robot"/>
+    </ownedClasses>
+    <ownedClasses xmi:id="T.robo.Program" name="Program" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclElement">
+      <ownedProperties xmi:id="p.robo.Program.name" name="name" isRequired="false" type="pivot:PrimitiveType http://www.eclipse.org/ocl/2015/Library.oclas#String"/>
+      <ownedProperties xmi:id="p.robo.Program.commands" name="commands" type="#//@ownedPackages.1/@ownedClasses.1" isComposite="true"
+          opposite="#p.robo.command.Command.Program"/>
+      <ownedProperties xmi:id="p.robo.Program.Robot" name="Robot" isRequired="false" type="#T.robo.Robot" isImplicit="true" opposite="#p.robo.Robot.programms"/>
+    </ownedClasses>
+    <ownedPackages xmi:id="P.robo.command" name="command" URI="http://www.example.org/robo/command" nsPrefix="command">
+      <ownedClasses xmi:id="T.robo.command.Command" name="Command" isAbstract="true" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclElement">
+        <ownedProperties xmi:id="p.robo.command.Command.Loop" name="Loop" isRequired="false" type="#T.robo.command.Loop" isImplicit="true"
+            opposite="#p.robo.command.Loop.commands"/>
+        <ownedProperties xmi:id="p.robo.command.Command.Branch" name="Branch" isRequired="false" type="#T.robo.command.Branch" isImplicit="true"
+            opposite="#p.robo.command.Branch.commands"/>
+        <ownedProperties xmi:id="p.robo.command.Command.Program" name="Program" isRequired="false" type="#T.robo.Program" isImplicit="true"
+            opposite="#p.robo.Program.commands"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.command.Drive" name="Drive" superClasses="#T.robo.command.Command">
+        <ownedInvariants xmi:id="cirobo.command.Drive.UntilOrDistance" name="UntilOrDistance">
+          <ownedSpecification xsi:type="pivot:ExpressionInOCL" body="(distance &lt;> null) xor (until &lt;> null)"/>
+        </ownedInvariants>
+        <ownedInvariants xmi:id="cirobo.command.Drive.UntilOnlyWhenForwardOrBackward" name="UntilOnlyWhenForwardOrBackward">
+          <ownedSpecification xsi:type="pivot:ExpressionInOCL" body="(until &lt;> null) implies (direction = FORWARD or direction = BACKWARD)"/>
+        </ownedInvariants>
+        <ownedProperties xmi:id="p.robo.command.Drive.distance" name="distance" isRequired="false" type="#T.robo.expression.Expr" isComposite="true"
+            opposite="#p.robo.expression.Expr.Drive"/>
+        <ownedProperties xmi:id="p.robo.command.Drive.until" name="until" isRequired="false" type="#T.robo.condition.Condition" isComposite="true"
+            opposite="#p.robo.condition.Condition.Drive"/>
+        <ownedProperties xmi:id="p.robo.command.Drive.direction" name="direction" type="#T.robo.command.Direction"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.command.Loop" name="Loop" superClasses="#T.robo.command.Command">
+        <ownedProperties xmi:id="p.robo.command.Loop.condition" name="condition" type="#T.robo.condition.Condition" isComposite="true"
+            opposite="#p.robo.condition.Condition.Loop"/>
+        <ownedProperties xmi:id="p.robo.command.Loop.commands" name="commands" type="#//@ownedPackages.1/@ownedClasses.1" isComposite="true"
+            opposite="#p.robo.command.Command.Loop"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.command.Branch" name="Branch" superClasses="#T.robo.command.Command">
+        <ownedProperties xmi:id="p.robo.command.Branch.condition" name="condition" type="#T.robo.condition.Condition" isComposite="true"
+            opposite="#p.robo.condition.Condition.Branch"/>
+        <ownedProperties xmi:id="p.robo.command.Branch.commands" name="commands" type="#//@ownedPackages.1/@ownedClasses.1" isComposite="true"
+            opposite="#p.robo.command.Command.Branch"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.command.Assignment" name="Assignment" superClasses="#T.robo.command.Command">
+        <ownedProperties xmi:id="p.robo.command.Assignment.variable" name="variable" type="pivot:PrimitiveType http://www.eclipse.org/ocl/2015/Library.oclas#String"/>
+        <ownedProperties xmi:id="p.robo.command.Assignment.value" name="value" type="#T.robo.expression.Expr" isComposite="true" opposite="#p.robo.expression.Expr.Assignment"/>
+      </ownedClasses>
+      <ownedClasses xsi:type="pivot:Enumeration" xmi:id="T.robo.command.Direction" name="Direction" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclEnumeration">
+        <ownedLiterals xmi:id="e.robo.command.Direction.FORWARD" name="FORWARD"/>
+        <ownedLiterals xmi:id="e.robo.command.Direction.BACKWARD" name="BACKWARD" value="1"/>
+        <ownedLiterals xmi:id="e.robo.command.Direction.LEFT" name="LEFT" value="2"/>
+        <ownedLiterals xmi:id="e.robo.command.Direction.RIGHT" name="RIGHT" value="3"/>
+      </ownedClasses>
+    </ownedPackages>
+    <ownedPackages xmi:id="P.robo.expression" name="expression" URI="http://www.example.org/robo/expression" nsPrefix="expression">
+      <ownedClasses xmi:id="T.robo.expression.Expr" name="Expr" isAbstract="true" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclElement">
+        <ownedOperations xmi:id="o.robo.expression.Expr.evaluate" name="evaluate" type="pivot:DataType http://www.eclipse.org/emf/2002/Ecore.oclas#//@ownedPackages.0/@ownedClasses.31"/>
+        <ownedProperties xmi:id="op.robo.expression.Operation.right" name="Operation" isRequired="false" type="#T.robo.expression.Operation"
+            isImplicit="true" opposite="#p.robo.expression.Operation.right"/>
+        <ownedProperties xmi:id="op.robo.condition.Comparison.left" name="Comparison" isRequired="false" type="#T.robo.condition.Comparison"
+            isImplicit="true" opposite="#p.robo.condition.Comparison.left"/>
+        <ownedProperties xmi:id="op.robo.expression.Operation.left" name="Operation" isRequired="false" type="#T.robo.expression.Operation"
+            isImplicit="true" opposite="#p.robo.expression.Operation.left"/>
+        <ownedProperties xmi:id="p.robo.expression.Expr.Assignment" name="Assignment" isRequired="false" type="#T.robo.command.Assignment"
+            isImplicit="true" opposite="#p.robo.command.Assignment.value"/>
+        <ownedProperties xmi:id="p.robo.expression.Expr.Drive" name="Drive" isRequired="false" type="#T.robo.command.Drive" isImplicit="true"
+            opposite="#p.robo.command.Drive.distance"/>
+        <ownedProperties xmi:id="op.robo.condition.Comparison.right" name="Comparison" isRequired="false" type="#T.robo.condition.Comparison"
+            isImplicit="true" opposite="#p.robo.condition.Comparison.right"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.expression.Variable" name="Variable" superClasses="#T.robo.expression.Expr">
+        <ownedProperties xmi:id="p.robo.expression.Variable.name" name="name" type="pivot:PrimitiveType http://www.eclipse.org/ocl/2015/Library.oclas#String"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.expression.Operation" name="Operation" superClasses="#T.robo.expression.Expr">
+        <ownedProperties xmi:id="p.robo.expression.Operation.left" name="left" isRequired="false" type="#T.robo.expression.Expr" isComposite="true"
+            opposite="#op.robo.expression.Operation.left"/>
+        <ownedProperties xmi:id="p.robo.expression.Operation.right" name="right" isRequired="false" type="#T.robo.expression.Expr" isComposite="true"
+            opposite="#op.robo.expression.Operation.right"/>
+        <ownedProperties xmi:id="p.robo.expression.Operation.operator" name="operator" type="#T.robo.expression.ExprOperation"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.expression.Literal" name="Literal" superClasses="#T.robo.expression.Expr">
+        <ownedProperties xmi:id="p.robo.expression.Literal.value" name="value" type="pivot:DataType http://www.eclipse.org/emf/2002/Ecore.oclas#//@ownedPackages.0/@ownedClasses.31"/>
+      </ownedClasses>
+      <ownedClasses xsi:type="pivot:Enumeration" xmi:id="T.robo.expression.ExprOperation" name="ExprOperation" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclEnumeration">
+        <ownedLiterals xmi:id="e.robo.expression.ExprOperation.PLUS" name="PLUS"/>
+        <ownedLiterals xmi:id="e.robo.expression.ExprOperation.MINUS" name="MINUS" value="1"/>
+        <ownedLiterals xmi:id="e.robo.expression.ExprOperation.MULTIPLY" name="MULTIPLY" value="2"/>
+        <ownedLiterals xmi:id="e.robo.expression.ExprOperation.DIVIDE" name="DIVIDE" value="3"/>
+      </ownedClasses>
+    </ownedPackages>
+    <ownedPackages xmi:id="P.robo.condition" name="condition" URI="http://www.example.org/robo/condition" nsPrefix="condition">
+      <ownedClasses xmi:id="T.robo.condition.Condition" name="Condition" isAbstract="true" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclElement">
+        <ownedOperations xmi:id="o.robo.condition.Condition.evaluate" name="evaluate" type="pivot:PrimitiveType http://www.eclipse.org/ocl/2015/Library.oclas#Boolean"/>
+        <ownedProperties xmi:id="p.robo.condition.Condition.Branch" name="Branch" isRequired="false" type="#T.robo.command.Branch" isImplicit="true"
+            opposite="#p.robo.command.Branch.condition"/>
+        <ownedProperties xmi:id="p.robo.condition.Condition.Loop" name="Loop" isRequired="false" type="#T.robo.command.Loop" isImplicit="true"
+            opposite="#p.robo.command.Loop.condition"/>
+        <ownedProperties xmi:id="p.robo.condition.Condition.Drive" name="Drive" isRequired="false" type="#T.robo.command.Drive" isImplicit="true"
+            opposite="#p.robo.command.Drive.until"/>
+      </ownedClasses>
+      <ownedClasses xmi:id="T.robo.condition.Comparison" name="Comparison" superClasses="#T.robo.condition.Condition">
+        <ownedProperties xmi:id="p.robo.condition.Comparison.left" name="left" type="#T.robo.expression.Expr" isComposite="true" opposite="#op.robo.condition.Comparison.left"/>
+        <ownedProperties xmi:id="p.robo.condition.Comparison.right" name="right" type="#T.robo.expression.Expr" isComposite="true" opposite="#op.robo.condition.Comparison.right"/>
+        <ownedProperties xmi:id="p.robo.condition.Comparison.operator" name="operator" type="#T.robo.condition.ComparisonOperator"/>
+      </ownedClasses>
+      <ownedClasses xsi:type="pivot:Enumeration" xmi:id="T.robo.condition.ComparisonOperator" name="ComparisonOperator" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclEnumeration">
+        <ownedLiterals xmi:id="e.robo.condition.ComparisonOperator.LESS" name="LESS"/>
+        <ownedLiterals xmi:id="e.robo.condition.ComparisonOperator.LESS_OR_EQUAL" name="LESS_OR_EQUAL" value="1"/>
+        <ownedLiterals xmi:id="e.robo.condition.ComparisonOperator.GREATER_OR_EQUAL" name="GREATER_OR_EQUAL" value="2"/>
+        <ownedLiterals xmi:id="e.robo.condition.ComparisonOperator.GREATER" name="GREATER" value="3"/>
+        <ownedLiterals xmi:id="e.robo.condition.ComparisonOperator.EQUAL" name="EQUAL" value="4"/>
+        <ownedLiterals xmi:id="e.robo.condition.ComparisonOperator.UNEQUAL" name="UNEQUAL" value="5"/>
+      </ownedClasses>
+    </ownedPackages>
+  </ownedPackages>
+  <ownedPackages xmi:id="P.$$" name="$$" URI="http://www.eclipse.org/ocl/2015/Orphanage" nsPrefix="orphanage">
+    <ownedClasses xsi:type="pivot:OrderedSetType" name="OrderedSet" superClasses="#//@ownedPackages.1/@ownedClasses.2 #//@ownedPackages.1/@ownedClasses.3"
+        elementType="#T.robo.Program" isNullFree="true">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.Program" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..OrderedSetT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:OrderedSetType" name="OrderedSet" superClasses="#//@ownedPackages.1/@ownedClasses.4 #//@ownedPackages.1/@ownedClasses.5"
+        elementType="#T.robo.command.Command" isNullFree="true">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.command.Command" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..OrderedSetT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:CollectionType" name="OrderedCollection" superClasses="#//@ownedPackages.1/@ownedClasses.6" elementType="#T.robo.Program">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.Program" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..OrderedCollectionT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:CollectionType" name="UniqueCollection" superClasses="#//@ownedPackages.1/@ownedClasses.6" elementType="#T.robo.Program">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.Program" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..UniqueCollectionT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:CollectionType" name="OrderedCollection" superClasses="#//@ownedPackages.1/@ownedClasses.7" elementType="#T.robo.command.Command">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.command.Command" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..OrderedCollectionT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:CollectionType" name="UniqueCollection" superClasses="#//@ownedPackages.1/@ownedClasses.7" elementType="#T.robo.command.Command">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.command.Command" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..UniqueCollectionT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:CollectionType" name="Collection" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclAny"
+        elementType="#T.robo.Program">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.Program" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..CollectionT"/>
+      </ownedBindings>
+    </ownedClasses>
+    <ownedClasses xsi:type="pivot:CollectionType" name="Collection" superClasses="http://www.eclipse.org/ocl/2015/Library.oclas#T.ocl.OclAny"
+        elementType="#T.robo.command.Command">
+      <ownedBindings>
+        <ownedSubstitutions actual="#T.robo.command.Command" formal="http://www.eclipse.org/ocl/2015/Library.oclas#t.ocl..CollectionT"/>
+      </ownedBindings>
+    </ownedClasses>
+  </ownedPackages>
+</pivot:Model>

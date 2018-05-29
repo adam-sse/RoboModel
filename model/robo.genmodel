@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/RoboModel/src-gen" creationIcons="false" editDirectory="/RoboModel.edit/src-gen"
+    editorDirectory="/RoboModel.editor/src-gen" modelPluginID="RoboModel" modelName="Robo"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>robo.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Robo" basePackage="robomodel" disposableProviderFactory="true"
+      ecorePackage="robo.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//MotorPort">
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//MotorPort/A"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//MotorPort/B"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//MotorPort/C"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//MotorPort/D"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//MotorType">
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//MotorType/LARGE"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//MotorType/MEDIUM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//SensorPort">
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorPort/S1"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorPort/S2"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorPort/S3"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorPort/S4"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//SensorType">
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorType/COLOR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//SensorMode">
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorMode/RED"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorMode/AMBIENT"/>
+      <genEnumLiterals ecoreEnumLiteral="robo.ecore#//SensorMode/COLOR_ID"/>
+    </genEnums>
+    <genClasses ecoreClass="robo.ecore#//Robot">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robo.ecore#//Robot/programms"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robo.ecore#//Robot/setup"/>
+    </genClasses>
+    <genClasses ecoreClass="robo.ecore#//Setup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robo.ecore#//Setup/leftMotor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robo.ecore#//Setup/rightMotor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robo.ecore#//Setup/sensors"/>
+    </genClasses>
+    <genClasses ecoreClass="robo.ecore#//Motor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Motor/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Motor/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Motor/speed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Motor/reversed"/>
+    </genClasses>
+    <genClasses ecoreClass="robo.ecore#//Sensor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Sensor/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Sensor/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Sensor/mode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Sensor/name"/>
+    </genClasses>
+    <genClasses ecoreClass="robo.ecore#//Program">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//Program/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robo.ecore#//Program/commands"/>
+    </genClasses>
+    <nestedGenPackages prefix="Command" basePackage="robomodel.robo" disposableProviderFactory="true"
+        ecorePackage="robo.ecore#//command">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//command/Direction">
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//command/Direction/FORWARD"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//command/Direction/BACKWARD"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//command/Direction/LEFT"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//command/Direction/RIGHT"/>
+      </genEnums>
+      <genClasses image="false" ecoreClass="robo.ecore#//command/Command"/>
+      <genClasses ecoreClass="robo.ecore#//command/Drive">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Drive/distance"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Drive/until"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//command/Drive/direction"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//command/Loop">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Loop/condition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Loop/commands"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//command/Branch">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Branch/condition"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Branch/commands"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//command/Assignment">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//command/Assignment/variable"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//command/Assignment/value"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Expression" basePackage="robomodel.robo" disposableProviderFactory="true"
+        ecorePackage="robo.ecore#//expression">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//expression/ExprOperation">
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//expression/ExprOperation/PLUS"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//expression/ExprOperation/MINUS"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//expression/ExprOperation/MULTIPLY"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//expression/ExprOperation/DIVIDE"/>
+      </genEnums>
+      <genClasses image="false" ecoreClass="robo.ecore#//expression/Expr">
+        <genOperations ecoreOperation="robo.ecore#//expression/Expr/evaluate"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//expression/Variable">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//expression/Variable/name"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//expression/Operation">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//expression/Operation/left"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//expression/Operation/right"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//expression/Operation/operator"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//expression/Literal">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//expression/Literal/value"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Condition" basePackage="robomodel.robo" disposableProviderFactory="true"
+        ecorePackage="robo.ecore#//condition">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="robo.ecore#//condition/ComparisonOperator">
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//condition/ComparisonOperator/LESS"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//condition/ComparisonOperator/LESS_OR_EQUAL"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//condition/ComparisonOperator/GREATER_OR_EQUAL"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//condition/ComparisonOperator/GREATER"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//condition/ComparisonOperator/EQUAL"/>
+        <genEnumLiterals ecoreEnumLiteral="robo.ecore#//condition/ComparisonOperator/UNEQUAL"/>
+      </genEnums>
+      <genClasses image="false" ecoreClass="robo.ecore#//condition/Condition">
+        <genOperations ecoreOperation="robo.ecore#//condition/Condition/evaluate"/>
+      </genClasses>
+      <genClasses ecoreClass="robo.ecore#//condition/Comparison">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//condition/Comparison/left"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference robo.ecore#//condition/Comparison/right"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robo.ecore#//condition/Comparison/operator"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>
